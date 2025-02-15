@@ -20,22 +20,21 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const { error: signUpError } = await supabase.auth.signUp({
+      // Sign up the user
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       });
 
       if (signUpError) throw signUpError;
+      if (!signUpData.user) throw new Error("Registration failed");
 
-      // Create user role entry
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { error: roleError } = await supabase
-          .from("user_roles")
-          .insert([{ user_id: user.id, role: "user" }]);
+      // Insert user role
+      const { error: roleError } = await supabase
+        .from("user_roles")
+        .insert([{ user_id: signUpData.user.id }]); // role will default to 'user'
 
-        if (roleError) throw roleError;
-      }
+      if (roleError) throw roleError;
 
       toast({
         title: "Registration successful",
