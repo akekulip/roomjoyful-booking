@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Calendar, Building } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -16,13 +17,17 @@ const Index = () => {
         </div>
 
         <div className="flex gap-4 animate-slideIn" style={{ animationDelay: "0.2s" }}>
-          <Button className="hover-card" size="lg">
-            <Calendar className="mr-2 h-5 w-5" />
-            Book a Room
+          <Button className="hover-card" size="lg" asChild>
+            <Link to="/rooms">
+              <Calendar className="mr-2 h-5 w-5" />
+              Book a Room
+            </Link>
           </Button>
-          <Button variant="outline" className="hover-card" size="lg">
-            <Building className="mr-2 h-5 w-5" />
-            View Rooms
+          <Button variant="outline" className="hover-card" size="lg" asChild>
+            <Link to="/rooms">
+              <Building className="mr-2 h-5 w-5" />
+              View Rooms
+            </Link>
           </Button>
         </div>
 
@@ -43,6 +48,6 @@ const Index = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Index;
