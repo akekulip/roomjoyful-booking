@@ -5,14 +5,17 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// Create the Supabase client
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseAnonKey || 'placeholder'
+);
+
+// Log warning if Supabase is not properly configured
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error(
     "Missing Supabase URL or Anon Key. Make sure you have connected your Supabase project in the Lovable dashboard."
   );
-  // Create a dummy client that will show appropriate UI messages
-  export const supabase = createClient('https://placeholder.supabase.co', 'placeholder');
-} else {
-  export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 }
 
 export type UserRole = "admin" | "user";
