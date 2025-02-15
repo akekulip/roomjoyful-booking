@@ -1,8 +1,15 @@
 
 import { createClient } from "@supabase/supabase-js";
 
+// When using Lovable's Supabase integration, these variables are automatically injected
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    "Missing Supabase URL or Anon Key. Make sure you have connected your Supabase project in the Lovable dashboard."
+  );
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
